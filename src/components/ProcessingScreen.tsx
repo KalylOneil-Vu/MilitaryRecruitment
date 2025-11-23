@@ -2,31 +2,32 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cpu, Activity } from 'lucide-react';
 import { PROCESSING_MESSAGES } from '../constants';
-import { UserData } from '../types';
-import { generateMilitaryPortrait } from '../services/replicate';
+import { UserData, GeneratedImages } from '../types';
+import { generateDualPortraits } from '../services/replicate';
 
 // Default video for processing
 const DEFAULT_PROCESSING_VIDEO = '/Media/I AM AN AMERICAN SOLDIER  BE ALL YOU CAN BE  GOARMY.mp4';
 
 // MOS-specific processing videos
 const MOS_PROCESSING_VIDEOS: { [key: string]: string } = {
-  'cyber': '/Media/SO EARLY  DECIDE TO LEAD  ARMY OFFICER.mp4',
+  'signal': '/Media/SO EARLY  DECIDE TO LEAD  ARMY OFFICER.mp4',
   // Add more MOS-specific videos here
-  // 'artillery': '/Media/artillery-processing.mp4',
+  // 'mechanics': '/Media/mechanics-processing.mp4',
   // 'aviation': '/Media/aviation-processing.mp4',
 };
 
 interface ProcessingScreenProps {
   userData: UserData;
-  onComplete: (generatedImage: string) => void;
+  onComplete: (generatedImages: GeneratedImages) => void;
 }
 
 const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplete }) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [generatedImageUrl, setGeneratedImageUrl] = useState<string | null>(null);
+  const [generatedImages, setGeneratedImages] = useState<GeneratedImages | null>(null);
   const [isGenerating, setIsGenerating] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hasStartedGeneration = useRef(false);
 
   // Start video playback
   useEffect(() => {
@@ -35,9 +36,8 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
     }
   }, []);
 
-  // Process messages and API call
+  // Process messages cycling
   useEffect(() => {
-    // Show processing messages
     const messageTimer = setInterval(() => {
       setCurrentMessage(prev => {
         if (prev < PROCESSING_MESSAGES.length - 1) {
@@ -47,7 +47,11 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
       });
     }, 800);
 
-    // Update progress bar
+    return () => clearInterval(messageTimer);
+  }, []);
+
+  // Progress bar animation
+  useEffect(() => {
     const progressTimer = setInterval(() => {
       setProgress(prev => {
         if (prev < 95 && isGenerating) {
@@ -60,53 +64,65 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
       });
     }, 150);
 
-    // Make API call
-    const generateImage = async () => {
+    return () => clearInterval(progressTimer);
+  }, [isGenerating]);
+
+  // API call - only runs ONCE on mount
+  useEffect(() => {
+    // Prevent duplicate calls
+    if (hasStartedGeneration.current) {
+      return;
+    }
+    hasStartedGeneration.current = true;
+
+    const generateImages = async () => {
       try {
         if (!userData.capturedImage || !userData.sex || !userData.selectedMOS) {
           throw new Error('Missing user data');
         }
 
-        const generatedImage = await generateMilitaryPortrait(
+        console.log('Starting generation with sex:', userData.sex);
+
+        // Generate TWO images in parallel
+        const images = await generateDualPortraits(
           userData.capturedImage,
           userData.sex,
           userData.selectedMOS
         );
 
-        setGeneratedImageUrl(generatedImage);
+        setGeneratedImages(images);
         setIsGenerating(false);
       } catch (error) {
-        console.error('Error generating image:', error);
-        setGeneratedImageUrl('https://images.unsplash.com/photo-1542190891-2093d38760f2?w=800&q=80');
+        console.error('Error generating images:', error);
+        // Fallback images on error
+        setGeneratedImages({
+          portrait: 'https://images.unsplash.com/photo-1542190891-2093d38760f2?w=800&q=80',
+          field: 'https://images.unsplash.com/photo-1542190891-2093d38760f2?w=800&q=80',
+        });
         setIsGenerating(false);
       }
     };
 
-    generateImage();
-
-    return () => {
-      clearInterval(messageTimer);
-      clearInterval(progressTimer);
-    };
-  }, [userData, isGenerating]);
+    generateImages();
+  }, [userData]);
 
   // Handle video end or generation complete
   const handleVideoEnd = () => {
-    if (generatedImageUrl) {
-      onComplete(generatedImageUrl);
+    if (generatedImages) {
+      onComplete(generatedImages);
     }
   };
 
   // If generation is done and video ended, proceed
   useEffect(() => {
-    if (!isGenerating && generatedImageUrl && progress >= 100) {
+    if (!isGenerating && generatedImages && progress >= 100) {
       // Give a moment for the progress bar to show 100%
       const timer = setTimeout(() => {
-        onComplete(generatedImageUrl);
+        onComplete(generatedImages);
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [isGenerating, generatedImageUrl, progress, onComplete]);
+  }, [isGenerating, generatedImages, progress, onComplete]);
 
   return (
     <motion.div
@@ -138,18 +154,6 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
         <div className="absolute bottom-32 left-8 w-24 h-24 border-b-2 border-l-2 border-army-gold opacity-70" />
         <div className="absolute bottom-32 right-8 w-24 h-24 border-b-2 border-r-2 border-army-gold opacity-70" />
 
-        {/* Scanning lines effect */}
-        <motion.div
-          className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-hud-green to-transparent opacity-50"
-          animate={{
-            y: [0, window.innerHeight, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
       </div>
 
       {/* Top HUD Info */}

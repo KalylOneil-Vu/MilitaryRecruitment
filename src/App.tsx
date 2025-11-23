@@ -7,7 +7,7 @@ import PhotoCapture from './components/PhotoCapture';
 import ProcessingScreen from './components/ProcessingScreen';
 import RevealScreen from './components/RevealScreen';
 import ScanlineOverlay from './components/ui/ScanlineOverlay';
-import { AppScreen, UserData, BiologicalSex, MOSOption } from './types';
+import { AppScreen, UserData, BiologicalSex, MOSOption, GeneratedImages } from './types';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>('attract');
@@ -34,8 +34,8 @@ function App() {
     setCurrentScreen('processing');
   };
 
-  const handleProcessingComplete = (generatedImage: string) => {
-    setUserData(prev => ({ ...prev, generatedImage }));
+  const handleProcessingComplete = (generatedImages: GeneratedImages) => {
+    setUserData(prev => ({ ...prev, generatedImages }));
     setCurrentScreen('reveal');
   };
 
@@ -46,8 +46,6 @@ function App() {
 
   return (
     <div className="h-screen w-screen bg-army-black overflow-hidden relative">
-      {/* Global scanline overlay */}
-      <ScanlineOverlay intensity="light" />
 
       {/* Screen router with animations */}
       <AnimatePresence mode="wait">

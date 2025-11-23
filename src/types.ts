@@ -10,23 +10,28 @@ export interface MOSOption {
     leadership: number;
     endurance: number;
   };
-  promptModifier: string;
+  portraitPrompt: string;
+  fieldPrompt: string;
 }
 
 export type BiologicalSex = 'male' | 'female';
+
+export interface GeneratedImages {
+  portrait: string;
+  field: string;
+}
 
 export interface UserData {
   sex?: BiologicalSex;
   selectedMOS?: MOSOption;
   capturedImage?: string;
-  generatedImage?: string;
+  generatedImages?: GeneratedImages;
 }
 
 export type AppScreen =
   | 'attract'
   | 'biodata'
   | 'mos-selection'
-  | 'mos-video'
   | 'photo-capture'
   | 'processing'
   | 'reveal';

@@ -22,14 +22,22 @@ app.get('/api/health', (req, res) => {
 // Generate image endpoint
 app.post('/api/generate', async (req, res) => {
   try {
-    const { image, sex, mosTitle, promptModifier } = req.body;
+    const { image, prompt, sex, mosTitle, promptModifier } = req.body;
 
-    console.log('Received request with sex:', sex, 'mosTitle:', mosTitle);
     console.log('Image data received:', image ? `${image.substring(0, 50)}...` : 'No image');
 
-    // Build the full prompt - reference the input image and transform it
-    const genderText = sex === 'male' ? 'man' : 'woman';
-    const fullPrompt = `Transform this person into a professional portrait of a ${genderText} as a US Army ${mosTitle}. Keep the person's face and features exactly the same but dress them in military dress uniform with medals and insignia. ${promptModifier || ''}. American flag in background, studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness.`;
+    // Use provided prompt directly, or build one from legacy fields
+    let fullPrompt;
+    if (prompt) {
+      // New approach: prompt is passed directly from frontend
+      fullPrompt = prompt;
+      console.log('Using provided prompt');
+    } else {
+      // Legacy approach: build prompt from individual fields
+      console.log('Building prompt from legacy fields - sex:', sex, 'mosTitle:', mosTitle);
+      const genderText = sex === 'male' ? 'man' : 'woman';
+      fullPrompt = `Transform this person into a professional portrait of a ${genderText} as a US Army ${mosTitle}. Keep the person's face and features exactly the same but dress them in military dress uniform with medals and insignia. ${promptModifier || ''}. American flag in background, studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness.`;
+    }
 
     // Prepare the input with the reference image
     const input = {

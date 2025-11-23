@@ -8,6 +8,7 @@ import ProcessingScreen from './components/ProcessingScreen';
 import RevealScreen from './components/RevealScreen';
 import ScanlineOverlay from './components/ui/ScanlineOverlay';
 import { AppScreen, UserData, BiologicalSex, MOSOption, GeneratedImages } from './types';
+import ArmyLogo from './components/united-states-army-2023-seeklogo.png';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>('attract');
@@ -89,8 +90,9 @@ function App() {
           <span className="text-hud-green">●</span>
           <span>FPS: 60</span>
         </div>
-        <div className="text-xs text-army-gold font-hud uppercase">
-          U.S. Army Recruitment Experience
+        <div className="flex items-center space-x-2 text-xs font-hud uppercase">
+          <img src={ArmyLogo} alt="U.S. Army" className="h-6 w-auto brightness-100" />
+          <span className="text-white">U.S. Army Recruitment Experience</span>
         </div>
         <div className="flex items-center space-x-4 text-xs text-army-gold font-hud">
           <span>v2.0.1</span>

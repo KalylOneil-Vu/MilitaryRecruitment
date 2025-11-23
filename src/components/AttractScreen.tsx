@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import ArmyLogo from './united-states-army-2023-seeklogo.png';
 
 const ATTRACT_VIDEO = '/Media/FIRST PATCH  BE ALL YOU CAN BE  GOARMY.mp4';
 
@@ -51,6 +52,15 @@ const AttractScreen: React.FC<AttractScreenProps> = ({ onStart }) => {
       {/* Main Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-8">
         <div className="text-center space-y-8">
+          {/* Army Logo */}
+          <motion.div
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+          >
+            <img src={ArmyLogo} alt="U.S. Army" className="h-32 w-auto mx-auto mb-6" />
+          </motion.div>
+
           {/* Main Title */}
           <motion.div
             initial={{ y: -50, opacity: 0 }}

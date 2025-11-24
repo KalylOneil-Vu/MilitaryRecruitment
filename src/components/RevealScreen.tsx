@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, RefreshCw, Download } from 'lucide-react';
+import { CheckCircle, RefreshCw } from 'lucide-react';
 import HUDFrame from './ui/HUDFrame';
 import GlowButton from './ui/GlowButton';
 import { UserData } from '../types';
+import ArmyLogo from './united-states-army-2023-seeklogo.png';
 
 interface RevealScreenProps {
   userData: UserData;
@@ -11,24 +12,6 @@ interface RevealScreenProps {
 }
 
 const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
-  const handleDownloadPortrait = () => {
-    if (userData.generatedImages?.portrait) {
-      const link = document.createElement('a');
-      link.href = userData.generatedImages.portrait;
-      link.download = `army-portrait-${Date.now()}.png`;
-      link.click();
-    }
-  };
-
-  const handleDownloadField = () => {
-    if (userData.generatedImages?.field) {
-      const link = document.createElement('a');
-      link.href = userData.generatedImages.field;
-      link.download = `army-field-${Date.now()}.png`;
-      link.click();
-    }
-  };
-
   return (
     <motion.div
       className="h-full w-full flex items-center justify-center bg-army-black tactical-grid"
@@ -39,6 +22,15 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
     >
       <HUDFrame className="w-full max-w-7xl mx-auto p-8">
         <div className="text-center space-y-4">
+          {/* Army Logo */}
+          <motion.div
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+          >
+            <img src={ArmyLogo} alt="U.S. Army" className="h-16 w-auto mx-auto" />
+          </motion.div>
+
           {/* Success Header */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}
@@ -129,16 +121,6 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
                   </div>
                 </div>
 
-                {/* Download button for portrait */}
-                <motion.button
-                  onClick={handleDownloadPortrait}
-                  className="mt-3 flex items-center justify-center space-x-2 text-army-gold hover:text-white transition-colors mx-auto"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Download className="w-4 h-4" />
-                  <span className="text-sm uppercase">Download</span>
-                </motion.button>
               </div>
             </motion.div>
 
@@ -202,37 +184,9 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
                     AI Enhanced
                   </motion.div>
                 </div>
-
-                {/* Download button for field */}
-                <motion.button
-                  onClick={handleDownloadField}
-                  className="mt-3 flex items-center justify-center space-x-2 text-hud-green hover:text-white transition-colors mx-auto"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Download className="w-4 h-4" />
-                  <span className="text-sm uppercase">Download</span>
-                </motion.button>
               </div>
             </motion.div>
           </div>
-
-          {/* Stats Display */}
-          {userData.selectedMOS && (
-            <motion.div
-              className="grid grid-cols-4 gap-3 mt-6 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.4 }}
-            >
-              {Object.entries(userData.selectedMOS.stats).map(([stat, value]) => (
-                <div key={stat} className="bg-army-dark border border-army-gold/50 p-2">
-                  <p className="text-[10px] text-gray-500 uppercase">{stat}</p>
-                  <p className="text-xl font-bold text-army-gold">{value}%</p>
-                </div>
-              ))}
-            </motion.div>
-          )}
 
           {/* Action Button */}
           <motion.div

@@ -3,6 +3,7 @@ export interface MOSOption {
   title: string;
   shortTitle: string;
   description: string;
+  detailedDescription: string;
   icon: string;
   stats: {
     strategy: number;

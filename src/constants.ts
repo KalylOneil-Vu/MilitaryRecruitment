@@ -6,6 +6,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Mechanics & Engineering',
     shortTitle: 'MECHANICS',
     description: 'Maintain and repair advanced military vehicles, from Bradley Fighting Vehicles to heavy equipment.',
+    detailedDescription: 'Maintain, diagnose, and repair advanced military vehicles including Bradley Fighting Vehicles and heavy equipment. You\'ll acquire foundational technical skills and work with cutting-edge military hardware. This role combines hands-on mechanical expertise with the precision required to keep the Army\'s ground fleet mission-ready.',
     icon: 'Wrench',
     stats: {
       strategy: 70,
@@ -21,6 +22,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Support & Logistics',
     shortTitle: 'LOGISTICS',
     description: 'Manage global supply chains, coordinate critical resources, and ensure mission readiness worldwide.',
+    detailedDescription: 'Manage global supply chains and coordinate critical resources to ensure mission readiness worldwide. You\'ll oversee automated logistics systems, inventory management, and supply operations in both garrison and deployed environments. This specialty is the backbone of Army operations, ensuring troops have what they need, when they need it.',
     icon: 'Package',
     stats: {
       strategy: 90,
@@ -36,6 +38,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Signal & Intelligence',
     shortTitle: 'SIGNAL',
     description: 'Operate advanced communications systems, gather critical intelligence, and ensure battlefield connectivity.',
+    detailedDescription: 'Operate advanced communications systems, gather critical intelligence, and ensure battlefield connectivity. You\'ll work with network infrastructure, server systems, and secure communication equipment to keep Army networks defended against adversaries. This role combines IT expertise with military operations to safeguard Army communications.',
     icon: 'Radio',
     stats: {
       strategy: 85,
@@ -51,6 +54,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Aviation & Aerial Defense',
     shortTitle: 'AVIATION',
     description: 'Pilot advanced helicopters, lead air assault missions, and dominate the skies in Apache gunships.',
+    detailedDescription: 'Pilot advanced helicopters including the UH-60 Black Hawk, CH-47 Chinook, and AH-64 Apache in combat and humanitarian missions. Your duties include transporting troops, strategic strikes, reconnaissance, and training recruits at combat schools. Flight school is fully paid by the Army in exchange for a service commitment.',
     icon: 'Plane',
     stats: {
       strategy: 80,
@@ -66,6 +70,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Science & Medicine',
     shortTitle: 'MEDICAL',
     description: 'Save lives on the battlefield, provide emergency medical care, and lead healthcare operations.',
+    detailedDescription: 'Provide emergency medical treatment at the point of injury on the battlefield, delivering primary care and health evacuation. You\'ll administer emergency care in both combat and humanitarian situations while training other soldiers in first responder procedures. Combat Medics are among the most respected specialists in the Army.',
     icon: 'Heart',
     stats: {
       strategy: 75,
@@ -81,6 +86,7 @@ export const MOS_OPTIONS: MOSOption[] = [
     title: 'Ground Forces',
     shortTitle: 'INFANTRY',
     description: 'Lead infantry squads, execute tactical operations, and serve as the backbone of the fighting force.',
+    detailedDescription: 'Lead Infantry Soldiers at all levels of command during ground missions, assessing tactical situations and directing offensive and defensive operations. Infantry is the backbone of the fighting force, responsible for close combat and tactical maneuvers. This role demands the highest levels of leadership, strategy, and physical endurance.',
     icon: 'Target',
     stats: {
       strategy: 95,

@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { User, UserCheck } from 'lucide-react';
 import HUDFrame from './ui/HUDFrame';
 import { BiologicalSex } from '../types';
+import ArmyLogo from './united-states-army-2023-seeklogo.png';
 
 interface BiodataEntryProps {
   onSelect: (sex: BiologicalSex) => void;
@@ -19,6 +19,15 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
     >
       <HUDFrame className="w-full max-w-5xl mx-auto p-12">
         <div className="text-center space-y-8">
+          {/* Army Logo */}
+          <motion.div
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+          >
+            <img src={ArmyLogo} alt="U.S. Army" className="h-20 w-auto mx-auto" />
+          </motion.div>
+
           {/* Header */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}
@@ -53,7 +62,7 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Select biological profile for accurate uniform generation
+            Select gender profile for accurate uniform generation
           </motion.p>
 
           {/* Selection Cards */}
@@ -68,29 +77,12 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold p-8 card-hover">
-                {/* Icon */}
-                <div className="flex justify-center mb-6">
-                  <div className="relative">
-                    <User className="w-24 h-24 text-army-gold" />
-                    <motion.div
-                      className="absolute inset-0 bg-army-gold opacity-20 blur-xl"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                      }}
-                    />
-                  </div>
-                </div>
-
+              <div className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold px-12 py-6 card-hover">
                 {/* Label */}
-                <h3 className="text-3xl font-bold text-white uppercase">
+                <h3 className="text-2xl font-bold text-white uppercase">
                   Male
                 </h3>
-                <p className="text-army-gold mt-2 uppercase tracking-wider">
+                <p className="text-army-gold mt-1 text-sm uppercase tracking-wider">
                   Profile Alpha
                 </p>
 
@@ -118,29 +110,12 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold p-8 card-hover">
-                {/* Icon */}
-                <div className="flex justify-center mb-6">
-                  <div className="relative">
-                    <UserCheck className="w-24 h-24 text-army-gold" />
-                    <motion.div
-                      className="absolute inset-0 bg-army-gold opacity-20 blur-xl"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                      }}
-                    />
-                  </div>
-                </div>
-
+              <div className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold px-12 py-6 card-hover">
                 {/* Label */}
-                <h3 className="text-3xl font-bold text-white uppercase">
+                <h3 className="text-2xl font-bold text-white uppercase">
                   Female
                 </h3>
-                <p className="text-army-gold mt-2 uppercase tracking-wider">
+                <p className="text-army-gold mt-1 text-sm uppercase tracking-wider">
                   Profile Bravo
                 </p>
 

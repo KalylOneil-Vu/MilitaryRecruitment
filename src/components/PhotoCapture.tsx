@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, AlertCircle } from 'lucide-react';
 import HUDFrame from './ui/HUDFrame';
+import ArmyLogo from './united-states-army-2023-seeklogo.png';
 
 interface PhotoCaptureProps {
   onCapture: (imageData: string) => void;
@@ -122,6 +123,15 @@ const PhotoCapture: React.FC<PhotoCaptureProps> = ({ onCapture }) => {
     >
       <HUDFrame className="w-full max-w-5xl mx-auto p-12">
         <div className="text-center space-y-6">
+          {/* Army Logo */}
+          <motion.div
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+          >
+            <img src={ArmyLogo} alt="U.S. Army" className="h-16 w-auto mx-auto" />
+          </motion.div>
+
           {/* Header */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}

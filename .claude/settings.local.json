@@ -14,7 +14,9 @@
       "Bash(node server.js:*)",
       "WebFetch(domain:replicate.com)",
       "WebSearch",
-      "WebFetch(domain:www.goarmy.com)"
+      "WebFetch(domain:www.goarmy.com)",
+      "Bash(copy:*)",
+      "Bash(cp:*)"
     ],
     "deny": [],
     "ask": []

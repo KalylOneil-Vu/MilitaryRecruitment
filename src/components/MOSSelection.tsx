@@ -58,15 +58,15 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <HUDFrame className="w-full max-w-7xl mx-auto p-12">
-        <div className="text-center space-y-8">
+      <HUDFrame className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8">
+        <div className="text-center space-y-3 md:space-y-4 pt-8 md:pt-4">
           {/* Army Logo */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            <img src={ArmyLogo} alt="U.S. Army" className="h-16 w-auto mx-auto" />
+            <img src={ArmyLogo} alt="U.S. Army" className="h-12 md:h-14 w-auto mx-auto" />
           </motion.div>
 
           {/* Header */}
@@ -75,10 +75,10 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            <h2 className="text-2xl text-army-gold uppercase tracking-widest mb-2">
+            <h2 className="text-lg md:text-xl text-army-gold uppercase tracking-widest mb-1">
               Military Occupational Specialty
             </h2>
-            <h1 className="text-5xl font-bold text-white">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
               SELECT YOUR PATH
             </h1>
           </motion.div>
@@ -97,7 +97,7 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
           </motion.div>
 
           {/* MOS Cards - 6 options in 2 rows of 3 */}
-          <div className="grid grid-cols-3 gap-4 mt-6">
+          <div className="grid grid-cols-3 gap-3 md:gap-4 mt-3">
             {MOS_OPTIONS.map((mos, index) => {
               const Icon = iconMap[mos.icon];
               const isSelected = selectedMOS?.id === mos.id;
@@ -114,7 +114,7 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
                   onClick={() => handleSelect(mos)}
                 >
                   <div
-                    className={`relative bg-gradient-to-b from-army-dark to-army-black border-2 p-4 transition-all h-full flex flex-col items-center justify-center ${
+                    className={`relative bg-gradient-to-b from-army-dark to-army-black border-2 p-3 md:p-4 transition-all h-full flex flex-col items-center justify-center ${
                       isSelected
                         ? 'border-white shadow-2xl shadow-army-gold/30'
                         : 'border-army-gold/70 hover:border-army-gold'
@@ -198,12 +198,12 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
 
           {/* Bottom Status */}
           <motion.div
-            className="pt-4"
+            className="pt-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             transition={{ delay: 1 }}
           >
-            <p className="text-sm text-gray-500 uppercase tracking-widest">
+            <p className="text-xs md:text-sm text-gray-500 uppercase tracking-widest">
               Step 2 of 4 • Specialty Selection
             </p>
           </motion.div>

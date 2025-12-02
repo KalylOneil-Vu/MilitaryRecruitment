@@ -1,6 +1,7 @@
 import { BiologicalSex, MOSOption, GeneratedImages } from '../types';
 
-const BACKEND_URL = 'http://localhost:3002';
+// Use relative URL for Vercel deployment, fallback to localhost for local dev
+const BACKEND_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3002';
 
 // Helper to replace {sex} placeholder with actual gender term
 function insertSexIntoPrompt(prompt: string, sex: BiologicalSex): string {

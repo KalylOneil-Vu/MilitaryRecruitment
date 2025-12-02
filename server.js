@@ -5,9 +5,9 @@ const Replicate = require('replicate');
 const app = express();
 const PORT = 3002;
 
-// Initialize Replicate with API token
+// Initialize Replicate with API token from environment variable
 const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN || 'r8_eW9X1Q4A0MSSxSIrTOwI0Cg8JTyu8r604hI2W',
+  auth: process.env.REPLICATE_API_TOKEN,
 });
 
 // Middleware

@@ -6,9 +6,14 @@ import ArmyLogo from './united-states-army-2023-seeklogo.png';
 
 interface BiodataEntryProps {
   onSelect: (sex: BiologicalSex) => void;
+  onClickSound?: () => void;
 }
 
-const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
+const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect, onClickSound }) => {
+  const handleSelect = (sex: BiologicalSex) => {
+    onClickSound?.();
+    onSelect(sex);
+  };
   return (
     <motion.div
       className="h-full w-full flex items-center justify-center bg-army-black tactical-grid"
@@ -69,7 +74,7 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
           <div className="grid grid-cols-2 gap-8 mt-12">
             {/* Male Option */}
             <motion.button
-              onClick={() => onSelect('male')}
+              onClick={() => handleSelect('male')}
               className="group relative"
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -102,7 +107,7 @@ const BiodataEntry: React.FC<BiodataEntryProps> = ({ onSelect }) => {
 
             {/* Female Option */}
             <motion.button
-              onClick={() => onSelect('female')}
+              onClick={() => handleSelect('female')}
               className="group relative"
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

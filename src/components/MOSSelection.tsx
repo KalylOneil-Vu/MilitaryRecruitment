@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Wrench, Package, Radio, Plane, Heart, Target, Info, X } from 'lucide-react';
+import { Wrench, Package, Radio, Plane, Heart, Target, X } from 'lucide-react';
 import HUDFrame from './ui/HUDFrame';
 import GlowButton from './ui/GlowButton';
 import { MOSOption } from '../types';
 import { MOS_OPTIONS } from '../constants';
 import ArmyLogo from './united-states-army-2023-seeklogo.png';
+import AviationBg from './ui/army-aviation-pilot_lg.jpg';
+import MedicalBg from './ui/army-medical-training_lg.jpg';
+import InfantryBg from './ui/infantry.jpg';
+import LogisticsBg from './ui/logistics-active-duty-soldiers-laptop_lg.jpg';
+import SignalBg from './ui/signal-army-cyber-tech-command_lg.jpg';
+import MechanicsBg from './ui/active-duty-tank_lg.jpg';
 
 interface MOSSelectionProps {
   onSelect: (mos: MOSOption) => void;
+  onCardClick?: () => void;
+  onModalSelect?: () => void;
 }
 
 const iconMap: { [key: string]: React.FC<{ className?: string }> } = {
@@ -20,13 +28,18 @@ const iconMap: { [key: string]: React.FC<{ className?: string }> } = {
   Target,
 };
 
-const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
+const backgroundImageMap: { [key: string]: string } = {
+  aviation: AviationBg,
+  medical: MedicalBg,
+  infantry: InfantryBg,
+  logistics: LogisticsBg,
+  signal: SignalBg,
+  mechanics: MechanicsBg,
+};
+
+const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect, onCardClick, onModalSelect }) => {
   const [selectedMOS, setSelectedMOS] = useState<MOSOption | null>(null);
   const [infoMOS, setInfoMOS] = useState<MOSOption | null>(null);
-
-  const handleSelect = (mos: MOSOption) => {
-    setSelectedMOS(mos);
-  };
 
   const handleConfirm = () => {
     if (selectedMOS) {
@@ -34,8 +47,9 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
     }
   };
 
-  const handleLearnMore = (e: React.MouseEvent, mos: MOSOption) => {
-    e.stopPropagation();
+  const handleOpenModal = (mos: MOSOption) => {
+    // Play card swipe sound and fade music
+    onCardClick?.();
     setInfoMOS(mos);
   };
 
@@ -45,6 +59,8 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
 
   const handleSelectFromModal = () => {
     if (infoMOS) {
+      // Play selection sound
+      onModalSelect?.();
       setSelectedMOS(infoMOS);
       setInfoMOS(null);
     }
@@ -68,7 +84,6 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
           >
             <img src={ArmyLogo} alt="U.S. Army" className="h-12 md:h-14 w-auto mx-auto" />
           </motion.div>
-
           {/* Header */}
           <motion.div
             initial={{ y: -30, opacity: 0 }}
@@ -101,6 +116,7 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
             {MOS_OPTIONS.map((mos, index) => {
               const Icon = iconMap[mos.icon];
               const isSelected = selectedMOS?.id === mos.id;
+              const bgImage = backgroundImageMap[mos.id];
 
               return (
                 <motion.div
@@ -111,15 +127,25 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
                   transition={{ delay: 0.4 + index * 0.08, duration: 0.5 }}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  onClick={() => handleSelect(mos)}
+                  onClick={() => handleOpenModal(mos)}
                 >
                   <div
-                    className={`relative bg-gradient-to-b from-army-dark to-army-black border-2 p-3 md:p-4 transition-all h-full flex flex-col items-center justify-center ${
+                    className={`relative overflow-hidden border-2 p-3 md:p-4 transition-all h-full flex flex-col items-center justify-center ${
                       isSelected
                         ? 'border-white shadow-2xl shadow-army-gold/30'
                         : 'border-army-gold/70 hover:border-army-gold'
-                    }`}
+                    } ${!bgImage ? 'bg-gradient-to-b from-army-dark to-army-black' : ''}`}
                   >
+                    {/* Background Image */}
+                    {bgImage && (
+                      <>
+                        <div
+                          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                          style={{ backgroundImage: `url(${bgImage})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/40" />
+                      </>
+                    )}
                     {/* Selected indicator */}
                     {isSelected && (
                       <motion.div
@@ -132,9 +158,9 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
                     )}
 
                     {/* Icon */}
-                    <div className="flex justify-center mb-3">
+                    <div className="relative z-10 flex justify-center mb-3">
                       <div className="relative">
-                        <Icon className="w-10 h-10 text-army-gold" />
+                        <Icon className="w-10 h-10 text-army-gold drop-shadow-lg" />
                         {isSelected && (
                           <motion.div
                             className="absolute inset-0 bg-army-gold opacity-30 blur-xl"
@@ -151,29 +177,20 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect }) => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-bold text-white uppercase mb-0.5">
+                    <h3 className="relative z-10 text-lg font-bold text-white uppercase mb-0.5 drop-shadow-lg">
                       {mos.shortTitle}
                     </h3>
 
                     {/* Full Title */}
-                    <p className="text-xs text-army-gold mb-3">
+                    <p className="relative z-10 text-xs text-army-gold drop-shadow-md">
                       {mos.title}
                     </p>
 
-                    {/* Learn More Button */}
-                    <button
-                      onClick={(e) => handleLearnMore(e, mos)}
-                      className="flex items-center space-x-1 text-xs text-gray-400 hover:text-white transition-colors border border-gray-600 hover:border-army-gold px-2 py-1 rounded"
-                    >
-                      <Info className="w-3 h-3" />
-                      <span>Learn More</span>
-                    </button>
-
                     {/* Corner accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-army-gold" />
-                    <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-army-gold" />
-                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-army-gold" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-army-gold" />
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-army-gold z-10" />
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-army-gold z-10" />
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-army-gold z-10" />
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-army-gold z-10" />
                   </div>
                 </motion.div>
               );

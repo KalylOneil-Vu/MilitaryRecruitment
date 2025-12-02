@@ -101,11 +101,13 @@ export const MOS_OPTIONS: MOSOption[] = [
 
 export const PROCESSING_MESSAGES: ProcessingMessage[] = [
   { id: 1, text: 'INITIALIZING NEURAL NETWORK...', delay: 0 },
-  { id: 2, text: 'ANALYZING BIOMETRIC DATA...', delay: 800 },
-  { id: 3, text: 'MAPPING FACIAL FEATURES...', delay: 1600 },
-  { id: 4, text: 'APPLYING MOS PARAMETERS...', delay: 2400 },
-  { id: 5, text: 'GENERATING TACTICAL PROFILE...', delay: 3200 },
-  { id: 6, text: 'ENHANCING MILITARY ATTRIBUTES...', delay: 4000 },
-  { id: 7, text: 'FINALIZING TRANSFORMATION...', delay: 4800 },
-  { id: 8, text: 'RECRUIT PROFILE COMPLETE', delay: 5600 },
+  { id: 2, text: 'ESTABLISHING SECURE CONNECTION...', delay: 4000 },
+  { id: 3, text: 'ANALYZING BIOMETRIC DATA...', delay: 8000 },
+  { id: 4, text: 'MAPPING FACIAL GEOMETRY...', delay: 12000 },
+  { id: 5, text: 'APPLYING MOS PARAMETERS...', delay: 16000 },
+  { id: 6, text: 'GENERATING PORTRAIT PROFILE...', delay: 20000 },
+  { id: 7, text: 'RENDERING FIELD ENVIRONMENT...', delay: 24000 },
+  { id: 8, text: 'ENHANCING MILITARY ATTRIBUTES...', delay: 28000 },
+  { id: 9, text: 'OPTIMIZING IMAGE QUALITY...', delay: 32000 },
+  { id: 10, text: 'FINALIZING TRANSFORMATION...', delay: 36000 },
 ];

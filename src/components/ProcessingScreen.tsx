@@ -45,7 +45,7 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
         }
         return prev;
       });
-    }, 800);
+    }, 4000);
 
     return () => clearInterval(messageTimer);
   }, []);
@@ -62,7 +62,7 @@ const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ userData, onComplet
         }
         return prev;
       });
-    }, 150);
+    }, 420);
 
     return () => clearInterval(progressTimer);
   }, [isGenerating]);

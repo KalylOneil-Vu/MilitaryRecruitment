@@ -6,15 +6,18 @@ import MOSSelection from './components/MOSSelection';
 import PhotoCapture from './components/PhotoCapture';
 import ProcessingScreen from './components/ProcessingScreen';
 import RevealScreen from './components/RevealScreen';
-import ScanlineOverlay from './components/ui/ScanlineOverlay';
 import { AppScreen, UserData, BiologicalSex, MOSOption, GeneratedImages } from './types';
+import useAudio from './hooks/useAudio';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>('attract');
   const [userData, setUserData] = useState<UserData>({});
+  const { playSound, startMusic, stopMusic } = useAudio();
 
   // Navigation handlers
   const handleStart = () => {
+    // Begin background music
+    startMusic(0.15); // Start music at low volume
     setCurrentScreen('biodata');
   };
 
@@ -25,6 +28,8 @@ function App() {
 
   const handleMOSSelection = (mos: MOSOption) => {
     setUserData(prev => ({ ...prev, selectedMOS: mos }));
+    // Stop music when leaving MOS selection
+    stopMusic();
     // Go directly to photo capture - MOS-specific videos play during processing
     setCurrentScreen('photo-capture');
   };
@@ -54,11 +59,24 @@ function App() {
         )}
 
         {currentScreen === 'biodata' && (
-          <BiodataEntry key="biodata" onSelect={handleSexSelection} />
+          <BiodataEntry
+            key="biodata"
+            onSelect={handleSexSelection}
+            onClickSound={() => playSound('mosSelection')}
+          />
         )}
 
         {currentScreen === 'mos-selection' && (
-          <MOSSelection key="mos" onSelect={handleMOSSelection} />
+          <MOSSelection
+            key="mos"
+            onSelect={handleMOSSelection}
+            onCardClick={() => {
+              playSound('cardSwipe');
+            }}
+            onModalSelect={() => {
+              playSound('mosSelection');
+            }}
+          />
         )}
 
         {currentScreen === 'photo-capture' && (

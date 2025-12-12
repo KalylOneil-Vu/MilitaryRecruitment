@@ -23,7 +23,11 @@
       "Bash(vercel --prod --yes:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(git push:*)",
+      "Bash(vercel logs:*)",
+      "Bash(vercel ls:*)",
+      "Bash(vercel inspect:*)"
     ],
     "deny": [],
     "ask": []

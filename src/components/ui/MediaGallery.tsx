@@ -9,7 +9,7 @@ interface MediaGalleryProps {
 
 const MediaGallery: React.FC<MediaGalleryProps> = ({ items }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeVideo, setActiveVideo] = useState<MediaItem | null>(null);
+  const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -33,9 +33,7 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items }) => {
   };
 
   const handleItemClick = (item: MediaItem) => {
-    if (item.type === 'video') {
-      setActiveVideo(item);
-    }
+    setActiveMedia(item);
   };
 
   return (
@@ -137,44 +135,52 @@ const MediaGallery: React.FC<MediaGalleryProps> = ({ items }) => {
         )}
       </div>
 
-      {/* Video Modal */}
+      {/* Media Modal (Image or Video) */}
       <AnimatePresence>
-        {activeVideo && (
+        {activeMedia && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
-            onClick={() => setActiveVideo(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95"
+            onClick={() => setActiveMedia(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-4xl mx-4 aspect-video"
+              className={`relative mx-4 ${activeMedia.type === 'video' ? 'w-full max-w-4xl aspect-video' : 'max-w-5xl max-h-[85vh]'}`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
-                onClick={() => setActiveVideo(null)}
-                className="absolute -top-10 right-0 text-white hover:text-army-gold transition-colors"
+                onClick={() => setActiveMedia(null)}
+                className="absolute -top-12 right-0 text-white hover:text-army-gold transition-colors z-10"
               >
                 <X className="w-8 h-8" />
               </button>
 
-              {/* Video Embed */}
-              <iframe
-                src={activeVideo.url}
-                title={activeVideo.caption || 'Video'}
-                className="w-full h-full border-2 border-army-gold"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {/* Content */}
+              {activeMedia.type === 'video' ? (
+                <iframe
+                  src={activeMedia.url}
+                  title={activeMedia.caption || 'Video'}
+                  className="w-full h-full border-2 border-army-gold"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <img
+                  src={activeMedia.url}
+                  alt={activeMedia.caption || 'Image'}
+                  className="max-w-full max-h-[85vh] object-contain border-2 border-army-gold"
+                />
+              )}
 
               {/* Caption */}
-              {activeVideo.caption && (
+              {activeMedia.caption && (
                 <p className="text-center text-white mt-4 text-lg">
-                  {activeVideo.caption}
+                  {activeMedia.caption}
                 </p>
               )}
             </motion.div>

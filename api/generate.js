@@ -41,35 +41,29 @@ module.exports = async function handler(req, res) {
       console.log('Added reference image to input');
     }
 
-    console.log('Calling Replicate API with prompt:', prompt.substring(0, 100) + '...');
+    console.log('Creating Replicate prediction with prompt:', prompt.substring(0, 100) + '...');
 
-    const output = await replicate.run('google/nano-banana-pro', { input });
+    // Use predictions.create() instead of run() to avoid timeout
+    // This returns immediately with a prediction ID
+    const prediction = await replicate.predictions.create({
+      model: 'google/nano-banana-pro',
+      input: input,
+    });
 
-    // Get the URL from the output
-    let imageUrl;
-    if (output && typeof output.url === 'function') {
-      imageUrl = output.url();
-    } else if (typeof output === 'string') {
-      imageUrl = output;
-    } else if (output && output[0]) {
-      imageUrl = typeof output[0].url === 'function' ? output[0].url() : output[0];
-    } else {
-      imageUrl = output;
-    }
-
-    console.log('Generated image URL:', imageUrl);
+    console.log('Prediction created with ID:', prediction.id);
+    console.log('Prediction status:', prediction.status);
 
     res.json({
       success: true,
-      imageUrl: imageUrl,
+      predictionId: prediction.id,
+      status: prediction.status,
     });
 
   } catch (error) {
-    console.error('Error generating image:', error);
+    console.error('Error creating prediction:', error);
     res.status(500).json({
       success: false,
       error: error.message,
-      imageUrl: 'https://images.unsplash.com/photo-1542190891-2093d38760f2?w=800&q=80'
     });
   }
 };

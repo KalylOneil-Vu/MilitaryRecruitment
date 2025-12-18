@@ -3,14 +3,19 @@ import { BiologicalSex, MOSOption, GeneratedImages } from '../types';
 // Use relative URL for Vercel deployment, fallback to localhost for local dev
 const BACKEND_URL = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3002';
 
+// Polling interval in ms
+const POLL_INTERVAL = 2000;
+// Max polling time (3 minutes)
+const MAX_POLL_TIME = 180000;
+
 // Helper to replace {sex} placeholder with actual gender term
 function insertSexIntoPrompt(prompt: string, sex: BiologicalSex): string {
   const genderTerm = sex === 'male' ? 'male' : 'female';
   return prompt.replace(/{sex}/g, genderTerm);
 }
 
-// Generate a single image with a given prompt
-async function generateSingleImage(
+// Start a prediction and return the prediction ID
+async function startPrediction(
   imageBase64: string,
   prompt: string
 ): Promise<string> {
@@ -31,15 +36,54 @@ async function generateSingleImage(
 
   const data = await response.json();
 
-  if (data.success && data.imageUrl) {
-    return data.imageUrl;
+  if (data.success && data.predictionId) {
+    return data.predictionId;
   }
 
-  if (data.imageUrl) {
-    return data.imageUrl;
+  throw new Error(data.error || 'Failed to start prediction');
+}
+
+// Poll for prediction status until complete
+async function pollForResult(predictionId: string): Promise<string> {
+  const startTime = Date.now();
+
+  while (Date.now() - startTime < MAX_POLL_TIME) {
+    const response = await fetch(`${BACKEND_URL}/api/status?id=${predictionId}`);
+
+    if (!response.ok) {
+      throw new Error(`Status check failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.status === 'succeeded' && data.imageUrl) {
+      return data.imageUrl;
+    }
+
+    if (data.status === 'failed' || data.status === 'canceled') {
+      throw new Error(data.error || 'Prediction failed');
+    }
+
+    // Still processing, wait and poll again
+    console.log(`Prediction ${predictionId} status: ${data.status}`);
+    await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL));
   }
 
-  throw new Error(data.error || 'Generation failed');
+  throw new Error('Prediction timed out after 3 minutes');
+}
+
+// Generate a single image with a given prompt (uses polling)
+async function generateSingleImage(
+  imageBase64: string,
+  prompt: string
+): Promise<string> {
+  // Start the prediction
+  const predictionId = await startPrediction(imageBase64, prompt);
+  console.log('Prediction started with ID:', predictionId);
+
+  // Poll for the result
+  const imageUrl = await pollForResult(predictionId);
+  return imageUrl;
 }
 
 // Generate dual portraits - portrait and field action shot

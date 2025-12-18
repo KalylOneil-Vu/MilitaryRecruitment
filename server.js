@@ -36,7 +36,7 @@ app.post('/api/generate', async (req, res) => {
       // Legacy approach: build prompt from individual fields
       console.log('Building prompt from legacy fields - sex:', sex, 'mosTitle:', mosTitle);
       const genderText = sex === 'male' ? 'man' : 'woman';
-      fullPrompt = `Transform this person into a professional portrait of a ${genderText} as a US Army ${mosTitle}. Keep the person's face and features exactly the same but dress them in military dress uniform with medals and insignia. ${promptModifier || ''}. American flag in background, studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness.`;
+      fullPrompt = `C`;
     }
 
     // Prepare the input with the reference image

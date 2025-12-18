@@ -16,6 +16,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army Bradley Fighting Vehicle System Maintainer. Wearing authentic OCP (Operational Camouflage Pattern) uniform with accurate colors (Army Green #4B5320, Coyote Brown #81613C), sleeves rolled up revealing grease-stained forearms, prominent E-5 Sergeant rank insignia (three chevrons) on chest. Background: A gritty military motor pool with the heavy metallic treads and armor plating of a Bradley Fighting Vehicle visible. Lighting: High-contrast industrial lighting with sparks flying from a welder in the background creating warm rim-lighting on the subject. Action pose holding a heavy industrial wrench, professional environmental portrait photography, highly detailed, photorealistic, 8K quality, sharp focus on the mechanical textures and oil grime. Rugged atmosphere. Maintain facial identity and likeness.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80', caption: 'Vehicle Maintenance' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder1', thumbnail: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', caption: 'Day in the Life' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80', caption: 'Technical Training' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=80', caption: 'Team Operations' },
+    ],
   },
   {
     id: 'logistics',
@@ -32,6 +38,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army Automated Logistical Specialist. Wearing authentic OCP (Operational Camouflage Pattern) uniform with accurate colors (Army Green #4B5320, Coyote Brown #81613C), clean appearance, prominent E-5 Sergeant rank insignia on chest, unit patch on shoulder. Background: A massive, expansive supply warehouse filled with stacked shipping containers and wooden crates, creating a sense of scale and global operations. Lighting: Bright, diffuse high-bay warehouse lighting reflecting off a digital inventory tablet held in hand. Confident pose overseeing a supply drop, professional military portrait photography, highly detailed, photorealistic, 8K quality, sharp focus on uniform fabric and background depth. Clean, organized atmosphere. Maintain facial identity and likeness.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80', caption: 'Supply Operations' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder2', thumbnail: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80', caption: 'Logistics Training' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=600&q=80', caption: 'Warehouse Management' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=600&q=80', caption: 'Global Coordination' },
+    ],
   },
   {
     id: 'signal',
@@ -48,6 +60,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army Information Technology Sergeant (IT Specialist). Wearing authentic OCP (Operational Camouflage Pattern) uniform with accurate colors, prominent E-5 Sergeant rank insignia (three chevrons) on chest patch. Background: A climate-controlled military data center aisle flanked by tall server racks filled with blinking network switches and patch panels. Lighting: Cool ambient lighting from overhead fluorescents mixed with the blue and green glow of status LEDs from the server equipment. Action pose holding a bundle of Cat6 ethernet cables and a network cable tester, looking up at a rack, professional military portrait photography, highly detailed, photorealistic, 8K quality, sharp focus on uniform textures and cabling details. Low key lighting.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80', caption: 'Data Center Operations' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder3', thumbnail: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80', caption: 'Cyber Defense' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80', caption: 'Network Security' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80', caption: 'Communications Setup' },
+    ],
   },
   {
     id: 'aviation',
@@ -64,6 +82,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army AH-64 Apache Helicopter Pilot. Wearing authentic Army Aircrew Combat Uniform (A2CU) flight suit in OCP pattern with accurate colors (Army Green #4B5320, Coyote Brown #81613C), prominent Army Aviation Wings badge and E-5 Sergeant rank on chest. Holding a specialized flight helmet under one arm. Background: Active airfield tarmac with the sleek, menacing silhouette of an Apache attack helicopter and its rotor blades visible behind. Lighting: Dramatic backlighting from runway floodlights creating a heroic halo effect, mixed with soft frontal fill light. Proud standing pose, professional aviation portrait photography, highly detailed, photorealistic, 8K quality, sharp focus on the flight suit zippers and aircraft rivets. Cinematic atmosphere. Maintain facial identity and likeness.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=600&q=80', caption: 'Flight Operations' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder4', thumbnail: 'https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=600&q=80', caption: 'Pilot Training' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=600&q=80', caption: 'Helicopter Missions' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1580820267682-426da823b514?w=600&q=80', caption: 'Aerial Combat' },
+    ],
   },
   {
     id: 'medical',
@@ -80,6 +104,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army Combat Medic Specialist. Wearing authentic OCP (Operational Camouflage Pattern) uniform with accurate colors (Army Green #4B5320, Coyote Brown #81613C), prominent E-5 Sergeant rank insignia, and distinct "MEDIC" patch on the vest. Background: The interior of a modern field medical tent or Field Ambulance with advanced medical monitoring equipment and hanging IV bags. Lighting: Clean, white clinical LED lighting focusing on the subject, contrasting with the dimmer background. Action pose checking a tactical medical kit or stethoscope, professional medical portrait photography, highly detailed, photorealistic, 8K quality, sharp focus on the medical gear textures and compassionate expression. Intense, life-saving atmosphere. Maintain facial identity and likeness.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80', caption: 'Medical Training' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder5', thumbnail: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=80', caption: 'Combat Medicine' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=600&q=80', caption: 'Field Hospital' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&q=80', caption: 'Emergency Response' },
+    ],
   },
   {
     id: 'infantry',
@@ -96,6 +126,12 @@ export const MOS_OPTIONS: MOSOption[] = [
     },
     portraitPrompt: 'Transform this {sex} person into a professional official military portrait of a US Army Soldier. Wearing authentic Army Service Uniform (ASU) dress uniform in dark blue with gold trim, white dress shirt, black tie, prominent rank insignia on chest, unit awards and ribbons. Clean professional appearance. American flag draped in background, formal studio lighting, photorealistic, highly detailed, sharp focus, professional military portrait photography, 8k quality. Maintain facial identity and likeness exactly.',
     fieldPrompt: 'Transform the {sex} person into a professional US Army Infantry Squad Leader. Wearing authentic OCP (Operational Camouflage Pattern) uniform with accurate colors (Army Green #4B5320, Coyote Brown #81613C), full tactical kit including IOTV body armor, combat helmet with night vision mount, and prominent E-5 Sergeant rank insignia. Background: A rugged, outdoor training environment with blurred forestry and smoke haze. Lighting: Gritty, natural overcast lighting ("softbox" effect) that highlights the texture of the mud and gear, with a subtle warm rim light from a distant flare. Action pose holding a standard issue M4 carbine at the low-ready position, professional combat photography, highly detailed, photorealistic, 8K quality, sharp focus on the weapon rails and camouflage patterns. Battle-hardened atmosphere. Maintain facial identity and likeness.',
+    media: [
+      { type: 'image', url: 'https://images.unsplash.com/photo-1580477667995-2b94f01c9516?w=600&q=80', caption: 'Tactical Training' },
+      { type: 'video', url: 'https://www.youtube.com/embed/placeholder6', thumbnail: 'https://images.unsplash.com/photo-1534470397273-7e45bd44ec03?w=600&q=80', caption: 'Combat Operations' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=600&q=80', caption: 'Squad Leadership' },
+      { type: 'image', url: 'https://images.unsplash.com/photo-1508614999368-9260051f2daa?w=600&q=80', caption: 'Field Exercises' },
+    ],
   },
 ];
 

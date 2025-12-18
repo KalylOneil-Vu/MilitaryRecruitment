@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Wrench, Package, Radio, Plane, Heart, Target, X } from 'lucide-react';
 import HUDFrame from './ui/HUDFrame';
 import GlowButton from './ui/GlowButton';
+import MediaGallery from './ui/MediaGallery';
 import { MOSOption } from '../types';
 import { MOS_OPTIONS } from '../constants';
 import ArmyLogo from './united-states-army-2023-seeklogo.png';
@@ -231,14 +232,14 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect, onCardClick, onMo
       <AnimatePresence>
         {infoMOS && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleCloseModal}
           >
             <motion.div
-              className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold p-8 max-w-lg mx-4"
+              className="relative bg-gradient-to-b from-army-dark to-army-black border-2 border-army-gold p-6 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -247,70 +248,100 @@ const MOSSelection: React.FC<MOSSelectionProps> = ({ onSelect, onCardClick, onMo
               {/* Close button */}
               <button
                 onClick={handleCloseModal}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10"
               >
                 <X className="w-6 h-6" />
               </button>
 
               {/* Modal Content */}
-              <div className="text-center space-y-6">
-                {/* Icon */}
-                <div className="flex justify-center">
-                  {(() => {
-                    const Icon = iconMap[infoMOS.icon];
-                    return <Icon className="w-16 h-16 text-army-gold" />;
-                  })()}
+              <div className="space-y-6">
+                {/* Header Section */}
+                <div className="flex items-start gap-4">
+                  {/* Icon */}
+                  <div className="flex-shrink-0">
+                    {(() => {
+                      const Icon = iconMap[infoMOS.icon];
+                      return (
+                        <div className="w-16 h-16 bg-army-gold/10 border border-army-gold/50 flex items-center justify-center">
+                          <Icon className="w-10 h-10 text-army-gold" />
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Title and Description */}
+                  <div className="flex-1">
+                    <h2 className="text-2xl font-bold text-white uppercase">
+                      {infoMOS.shortTitle}
+                    </h2>
+                    <p className="text-army-gold mt-1">{infoMOS.title}</p>
+                    <p className="text-gray-300 text-sm leading-relaxed mt-3">
+                      {infoMOS.detailedDescription}
+                    </p>
+                  </div>
                 </div>
 
-                {/* Title */}
+                {/* Media Gallery */}
                 <div>
-                  <h2 className="text-2xl font-bold text-white uppercase">
-                    {infoMOS.shortTitle}
-                  </h2>
-                  <p className="text-army-gold mt-1">{infoMOS.title}</p>
+                  <h3 className="text-sm text-gray-400 uppercase tracking-wider mb-3">
+                    Gallery
+                  </h3>
+                  <MediaGallery items={infoMOS.media} />
                 </div>
-
-                {/* Detailed Description */}
-                <p className="text-gray-300 text-left leading-relaxed">
-                  {infoMOS.detailedDescription}
-                </p>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 gap-3 text-left">
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase">Strategy</p>
-                    <div className="h-2 bg-gray-700 mt-1">
-                      <div
-                        className="h-full bg-army-gold"
-                        style={{ width: `${infoMOS.stats.strategy}%` }}
-                      />
+                <div>
+                  <h3 className="text-sm text-gray-400 uppercase tracking-wider mb-3">
+                    Specialty Attributes
+                  </h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase mb-1">Strategy</p>
+                      <div className="h-2 bg-gray-700">
+                        <motion.div
+                          className="h-full bg-army-gold"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${infoMOS.stats.strategy}%` }}
+                          transition={{ duration: 0.5, delay: 0.1 }}
+                        />
+                      </div>
+                      <p className="text-xs text-army-gold mt-1">{infoMOS.stats.strategy}%</p>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase">Technology</p>
-                    <div className="h-2 bg-gray-700 mt-1">
-                      <div
-                        className="h-full bg-army-gold"
-                        style={{ width: `${infoMOS.stats.technology}%` }}
-                      />
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase mb-1">Technology</p>
+                      <div className="h-2 bg-gray-700">
+                        <motion.div
+                          className="h-full bg-army-gold"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${infoMOS.stats.technology}%` }}
+                          transition={{ duration: 0.5, delay: 0.2 }}
+                        />
+                      </div>
+                      <p className="text-xs text-army-gold mt-1">{infoMOS.stats.technology}%</p>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase">Leadership</p>
-                    <div className="h-2 bg-gray-700 mt-1">
-                      <div
-                        className="h-full bg-army-gold"
-                        style={{ width: `${infoMOS.stats.leadership}%` }}
-                      />
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase mb-1">Leadership</p>
+                      <div className="h-2 bg-gray-700">
+                        <motion.div
+                          className="h-full bg-army-gold"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${infoMOS.stats.leadership}%` }}
+                          transition={{ duration: 0.5, delay: 0.3 }}
+                        />
+                      </div>
+                      <p className="text-xs text-army-gold mt-1">{infoMOS.stats.leadership}%</p>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase">Endurance</p>
-                    <div className="h-2 bg-gray-700 mt-1">
-                      <div
-                        className="h-full bg-army-gold"
-                        style={{ width: `${infoMOS.stats.endurance}%` }}
-                      />
+                    <div>
+                      <p className="text-xs text-gray-500 uppercase mb-1">Endurance</p>
+                      <div className="h-2 bg-gray-700">
+                        <motion.div
+                          className="h-full bg-army-gold"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${infoMOS.stats.endurance}%` }}
+                          transition={{ duration: 0.5, delay: 0.4 }}
+                        />
+                      </div>
+                      <p className="text-xs text-army-gold mt-1">{infoMOS.stats.endurance}%</p>
                     </div>
                   </div>
                 </div>

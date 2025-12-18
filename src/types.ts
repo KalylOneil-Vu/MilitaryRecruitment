@@ -1,3 +1,10 @@
+export interface MediaItem {
+  type: 'image' | 'video';
+  url: string;
+  thumbnail?: string;
+  caption?: string;
+}
+
 export interface MOSOption {
   id: string;
   title: string;
@@ -13,6 +20,7 @@ export interface MOSOption {
   };
   portraitPrompt: string;
   fieldPrompt: string;
+  media: MediaItem[];
 }
 
 export type BiologicalSex = 'male' | 'female';

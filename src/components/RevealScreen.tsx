@@ -172,15 +172,6 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
                     </p>
                   </div>
 
-                  {/* "AI Enhanced" badge */}
-                  <motion.div
-                    className="absolute top-3 right-3 bg-hud-green text-black px-2 py-1 text-xs font-bold uppercase"
-                    initial={{ scale: 0, rotate: -15 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 1.2, type: 'spring' }}
-                  >
-                    AI Enhanced
-                  </motion.div>
                 </div>
               </div>
             </motion.div>

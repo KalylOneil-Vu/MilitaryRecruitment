@@ -77,7 +77,6 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
               transition={{ delay: 0.8, duration: 0.6 }}
             >
               <div className="relative">
-                <h3 className="text-xl text-army-gold uppercase mb-3">Official Portrait</h3>
                 <div className="relative aspect-[3/4] bg-black border-2 border-army-gold overflow-hidden">
                   {userData.generatedImages?.portrait ? (
                     <img
@@ -131,7 +130,6 @@ const RevealScreen: React.FC<RevealScreenProps> = ({ userData, onRestart }) => {
               transition={{ delay: 0.8, duration: 0.6 }}
             >
               <div className="relative">
-                <h3 className="text-xl text-hud-green uppercase mb-3">In The Field</h3>
                 <div className="relative aspect-[3/4] bg-black border-2 border-hud-green overflow-hidden shadow-2xl shadow-army-gold/30">
                   {userData.generatedImages?.field ? (
                     <img
